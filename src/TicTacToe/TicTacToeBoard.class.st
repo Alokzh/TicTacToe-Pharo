@@ -42,3 +42,9 @@ TicTacToeBoard >> isEmpty: index [
 
 	^ (self cellAt: index) isNil.
 ]
+
+{ #category : 'accessing' }
+TicTacToeBoard >> isFull [
+
+	^ cells allSatisfy: [:each | each notNil]
+]

@@ -44,3 +44,11 @@ TicTacToeGame >> initializePlayers [
     players add: player1.
     players add: player2.
 ]
+
+{ #category : 'actions' }
+TicTacToeGame >> switchPlayer [
+
+	currentPlayer := (currentPlayer == players first)
+        ifTrue: [ players second ]
+        ifFalse: [ players first ].
+]
