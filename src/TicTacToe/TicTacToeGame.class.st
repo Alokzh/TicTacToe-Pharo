@@ -13,6 +13,18 @@ Class {
 	#package : 'TicTacToe'
 }
 
+{ #category : 'accessing' }
+TicTacToeGame >> board [
+
+	^ board
+]
+
+{ #category : 'accessing' }
+TicTacToeGame >> currentPlayer [
+
+	^ currentPlayer
+]
+
 { #category : 'initialization' }
 TicTacToeGame >> initialize [
 
