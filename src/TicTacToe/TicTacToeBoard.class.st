@@ -30,6 +30,12 @@ TicTacToeBoard >> cellAt: index put: aValue [
 	cells at: index put: aValue.
 ]
 
+{ #category : 'testing' }
+TicTacToeBoard >> hasWinner [
+
+	^ self winner notNil
+]
+
 { #category : 'initialization' }
 TicTacToeBoard >> initialize [
 
@@ -47,4 +53,27 @@ TicTacToeBoard >> isEmpty: index [
 TicTacToeBoard >> isFull [
 
 	^ cells allSatisfy: [:each | each notNil]
+]
+
+{ #category : 'testing' }
+TicTacToeBoard >> winner [
+
+	self winningPatterns do: [:pattern |
+        | firstCell |
+        firstCell := self cellAt: pattern first.
+        (firstCell notNil and: [
+            pattern allSatisfy: [:index | (self cellAt: index) = firstCell]
+        ]) ifTrue: [ ^ firstCell ].
+    ].
+    ^ nil
+]
+
+{ #category : 'private' }
+TicTacToeBoard >> winningPatterns [
+
+	^ #(
+		#(1 2 3) #(4 5 6) #(7 8 9)
+		#(1 4 7) #(2 5 8) #(3 6 9)
+		#(1 5 9) #(3 5 7)
+	)
 ]
