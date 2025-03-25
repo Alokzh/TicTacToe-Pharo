@@ -43,3 +43,13 @@ TicTacToePlayer >> name: aName [
 	
 	name := aName
 ]
+
+{ #category : 'printing' }
+TicTacToePlayer >> printOn: aStream [
+
+	aStream 
+        nextPutAll: name; 
+        nextPutAll: ' ('; 
+        nextPut: mark; 
+        nextPut: $).
+]
