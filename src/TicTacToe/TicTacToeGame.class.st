@@ -7,7 +7,8 @@ Class {
 	#instVars : [
 		'board',
 		'currentPlayer',
-		'players'
+		'players',
+		'history'
 	],
 	#category : 'TicTacToe',
 	#package : 'TicTacToe'
@@ -25,14 +26,21 @@ TicTacToeGame >> currentPlayer [
 	^ currentPlayer
 ]
 
+{ #category : 'accessing' }
+TicTacToeGame >> history [
+
+	^ history
+]
+
 { #category : 'initialization' }
 TicTacToeGame >> initialize [
 
 	super initialize.
 	board := TicTacToeBoard new.
 	players := OrderedCollection new.
+	history := OrderedCollection new.
 	self initializePlayers.
-	currentPlayer := players first.
+	currentPlayer := players first
 ]
 
 { #category : 'initialization' }
@@ -56,10 +64,18 @@ TicTacToeGame >> makeMove: index [
 
 	self validateMove: index.
 	board cellAt: index put: currentPlayer mark.
-	self isGameOver ifFalse: [
-		self switchPlayer.
-	].
-	^ self.
+	history add: { currentPlayer. index }.
+	self isGameOver ifFalse: [ self switchPlayer ].
+	^ self
+]
+
+{ #category : 'initialization' }
+TicTacToeGame >> reset [
+
+	board reset.
+	currentPlayer := players first.
+	history removeAll.
+	^ self
 ]
 
 { #category : 'actions' }
