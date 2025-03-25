@@ -61,6 +61,26 @@ TicTacToeBoard >> isFull [
 	^ cells allSatisfy: [:each | each notNil]
 ]
 
+{ #category : 'printing' }
+TicTacToeBoard >> printOn: aStream [
+
+	| index |
+	index := 1.
+	aStream nextPutAll: '-------'; cr.
+	1 to: 3 do: [:row |
+		aStream nextPut: $|.
+		1 to: 3 do: [:col |
+			| cell |
+			cell := cells at: index.
+			aStream nextPut: (cell ifNil: [$ ] ifNotNil: [cell]).
+			aStream nextPut: $|.
+			index := index + 1.
+		].
+		aStream cr.
+		aStream nextPutAll: '-------'; cr.
+	]
+]
+
 { #category : 'initialization' }
 TicTacToeBoard >> reset [
 
