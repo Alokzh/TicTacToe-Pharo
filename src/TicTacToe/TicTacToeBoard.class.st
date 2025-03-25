@@ -43,6 +43,12 @@ TicTacToeBoard >> initialize [
 	cells := Array new: 9 withAll: nil
 ]
 
+{ #category : 'testing' }
+TicTacToeBoard >> isDraw [
+
+	^ self isFull and: [self hasWinner not]
+]
+
 { #category : 'accessing' }
 TicTacToeBoard >> isEmpty: index [
 
@@ -53,6 +59,14 @@ TicTacToeBoard >> isEmpty: index [
 TicTacToeBoard >> isFull [
 
 	^ cells allSatisfy: [:each | each notNil]
+]
+
+{ #category : 'initialization' }
+TicTacToeBoard >> reset [
+
+	1 to: 9 do: [:index |
+		self cellAt: index put: nil.
+	]
 ]
 
 { #category : 'testing' }
