@@ -69,6 +69,29 @@ TicTacToeGame >> makeMove: index [
 	^ self
 ]
 
+{ #category : 'printing' }
+TicTacToeGame >> printHistoryOn: aStream [
+
+	history doWithIndex: [:move :index |
+        aStream
+            nextPutAll: 'Move '; print: index; nextPutAll: ': ';
+            print: move first; nextPutAll: ' placed '; print: move first mark;
+            nextPutAll: ' at position '; print: move second; cr.
+    ].
+]
+
+{ #category : 'printing' }
+TicTacToeGame >> printOn: aStream [
+
+	aStream
+        nextPutAll: 'TicTacToeGame'; cr;
+        nextPutAll: 'Current Player: '; print: currentPlayer; cr;
+        nextPutAll: 'Board:'; cr;
+        print: board; cr;
+        nextPutAll: 'Move History:'; cr.
+    self printHistoryOn: aStream.
+]
+
 { #category : 'initialization' }
 TicTacToeGame >> reset [
 
