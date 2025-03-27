@@ -69,6 +69,43 @@ TicTacToeGame >> makeMove: index [
 	^ self
 ]
 
+{ #category : 'running' }
+TicTacToeGame >> play [
+
+	| input |
+	[ self isGameOver ] whileFalse: [
+		Transcript
+			show: self status;
+			cr;
+			cr.
+		Transcript
+			show: 'Current board:';
+			cr.
+		Transcript
+			show: self board;
+			cr;
+			cr.
+		input := UIManager default
+			         request:
+			         'Enter position (1-9) for ' , self currentPlayer name
+			         , ':'
+			         initialAnswer: ''.
+		input ifNil: [ ^ self ].
+		[ self makeMove: input asInteger ]
+			on: Error
+			do: [ :err | UIManager default alert: err messageText ] ].
+	Transcript
+		show: self status;
+		cr.
+	Transcript
+		show: 'Final board:';
+		cr.
+	Transcript
+		show: self board;
+		cr.
+	^ self
+]
+
 { #category : 'printing' }
 TicTacToeGame >> printHistoryOn: aStream [
 
@@ -99,6 +136,16 @@ TicTacToeGame >> reset [
 	currentPlayer := players first.
 	history removeAll.
 	^ self
+]
+
+{ #category : 'accessing' }
+TicTacToeGame >> status [
+
+	board hasWinner ifTrue: [
+		^ 'Game over! ' , board winner asString , ' wins!' ].
+	board isFull ifTrue: [ ^ 'Game over! It''s a draw!' ].
+	^ currentPlayer name , '''s turn (' , currentPlayer mark asString
+	  , ')'
 ]
 
 { #category : 'actions' }
